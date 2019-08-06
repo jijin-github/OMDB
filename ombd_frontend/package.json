@@ -2,7 +2,7 @@
   "name": "ombd_frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost:9000",
   "dependencies": {
     "react": "^16.8.6",
     "react-autocomplete": "^1.8.1",
