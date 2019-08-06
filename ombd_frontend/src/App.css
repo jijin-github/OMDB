@@ -59,3 +59,8 @@ code {
   top: 30%;
   left: 30%;
 }
+
+.DetailsSection{
+  float: right;
+  padding-right: 150px;
+}

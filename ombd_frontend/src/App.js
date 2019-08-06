@@ -10,7 +10,8 @@ export default class App extends React.Component {
 
         this.state = {
             value: "",
-            autocompleteData: []
+            autocompleteData: [],
+            selected_item: {}
         };
 
         this.onChange = this.onChange.bind(this);
@@ -23,9 +24,7 @@ export default class App extends React.Component {
 
     retrieveDataAsynchronously(searchText){
         let _this = this;
-
         let url = `/movie/search?key=${searchText}`;
-
         let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'json';
@@ -38,8 +37,6 @@ export default class App extends React.Component {
                         autocompleteData: xhr.response.Search
                     });
                 }
-
-                console.log(xhr.response);
             } else {
                 console.error("Cannot load data from remote source");
             }
@@ -77,6 +74,16 @@ export default class App extends React.Component {
 
 
     getItemValue(item){
+        let url = `/movie/details/${item.imdbID}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    selected_item: result.fields
+                });
+            }
+        )
         return `${item.Title}`;
     }
 
@@ -95,6 +102,12 @@ export default class App extends React.Component {
                     className="searchTerm"
                 />
                 
+            </div>
+
+            <div className="DetailsSection">
+                <label>Title: {this.state.selected_item.title}</label>
+                <label>Rated: {this.state.selected_item.rated}</label>
+                <label>Actors: {this.state.selected_item.actors}</label>
             </div>
             
                
